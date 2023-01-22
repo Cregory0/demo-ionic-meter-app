@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="isLoading; else elseBlock">
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </div>
+
+  <ng-template #elseBlock>
+    <ion-card>
+      <ion-card-header> Set electric Rate </ion-card-header>
+      <ion-input placeholder="{{ energyRate.energyRate }}"></ion-input>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header> Set Day Rate </ion-card-header>
+      <ion-input
+        placeholder="{{ standingChargeRate.standingChargeRate }}"
+      ></ion-input>
+    </ion-card>
+  </ng-template>
+</ion-content>

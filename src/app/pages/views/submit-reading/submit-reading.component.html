@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Submit Reading</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <form class="form" [formGroup]="submitReading" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label for="reading" position="stacked">Reading:</ion-label>
+        <ion-input
+          id="reading"
+          type="number"
+          formControlName="reading"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label for="inputType" position="stacked">Input Type:</ion-label>
+        <ion-select id="inputType" formControlName="inputType">
+          <ion-select-option value="Customer">Customer</ion-select-option>
+          <ion-select-option value="Estimated">Estimated</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label for="date" position="stacked">Date:</ion-label>
+        <ion-input id="date" type="date" formControlName="date"></ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="full"
+        type="submit"
+        [disabled]="!submitReading.valid"
+        (click)="
+          presentToast(
+            'top',
+            'Success: New reading entry added',
+            'thumbs-up-outline',
+            'success'
+          )
+        "
+        >Submit
+      </ion-button>
+    </form>
+  </ion-card>
+</ion-content>

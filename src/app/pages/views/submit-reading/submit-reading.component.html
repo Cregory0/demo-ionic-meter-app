@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Submit Reading</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-card>
+        <form class="form" [formGroup]="submitReading" (ngSubmit)="onSubmit()">
+            <ion-item>
+                <ion-input
+                    id="reading"
+                    type="number"
+                    formControlName="reading"
+                    label="Reading:"
+                    labelPlacement="stacked"
+                ></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-select
+                    id="inputType"
+                    formControlName="inputType"
+                    label="Input Type:"
+                    labelPlacement="stacked"
+                >
+                    <ion-select-option value="Customer"
+                        >Customer</ion-select-option
+                    >
+                    <ion-select-option value="Estimated"
+                        >Estimated</ion-select-option
+                    >
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-input
+                    id="date"
+                    type="date"
+                    formControlName="date"
+                    label="Date:"
+                    labelPlacement="stacked"
+                ></ion-input>
+            </ion-item>
+
+            <ion-button
+                expand="full"
+                type="submit"
+                [disabled]="!submitReading.valid"
+                (click)="
+                    presentToast(
+                        'top',
+                        'Success: New reading entry added',
+                        'thumbs-up-outline',
+                        'success'
+                    )
+                "
+                >Submit
+            </ion-button>
+        </form>
+    </ion-card>
+</ion-content>

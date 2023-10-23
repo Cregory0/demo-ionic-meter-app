@@ -1,0 +1,103 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Costs</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div *ngIf="isLoading; else elseBlock">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    </div>
+
+    <ng-template #elseBlock>
+        <ion-card>
+            <ion-toolbar>
+                <ion-title>{{ month }}</ion-title>
+            </ion-toolbar>
+
+            <ion-item>
+                <ion-select
+                    id="firstDate"
+                    [(ngModel)]="firstOption"
+                    label="First Date:"
+                    labelPlacement="floating"
+                >
+                    <ion-select-option
+                        *ngFor="let data of datas"
+                        [value]="data"
+                        >{{ data.date }}</ion-select-option
+                    >
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-select
+                    id="secondDate"
+                    [(ngModel)]="secondOption"
+                    label="Second Date:"
+                    labelPlacement="floating"
+                >
+                    <ion-select-option
+                        *ngFor="let data of datas"
+                        [value]="data"
+                        >{{ data.date }}</ion-select-option
+                    >
+                </ion-select>
+            </ion-item>
+
+            <ion-button expand="full" (click)="updateCosts()"
+                >Calculate</ion-button
+            >
+
+            <ion-item>
+                <ion-label>Energy</ion-label>
+                <ion-label class="ion-text-wrap"
+                    >{{ energyUsage }} kWh @
+                    {{ electricityRates.energyRate.toFixed(4) }}
+                    p/kWh</ion-label
+                >
+                <ion-label>£ {{ energyCharge.toFixed(2) }}</ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="ion-text-wrap">Standing charge</ion-label>
+                <ion-label class="ion-text-wrap"
+                    >{{ dateDifference }} days @
+                    {{ electricityRates.standingChargeRate.toFixed(4) }}
+                    p/day</ion-label
+                >
+                <ion-label
+                    >£
+                    {{
+                        electricityRates.standingChargeRate.toFixed(2)
+                    }}</ion-label
+                >
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="ion-text-wrap"
+                    >Cost of electricity used</ion-label
+                >
+                <ion-label></ion-label>
+                <ion-label>£ {{ cost.toFixed(2) }}</ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>VAT @ 5%</ion-label>
+                <ion-label></ion-label>
+                <ion-label>£ {{ vat.toFixed(2) }}</ion-label>
+            </ion-item>
+
+            <ion-item>
+                <ion-label class="ion-text-wrap"
+                    >Total electricity costs for this bill</ion-label
+                >
+                <ion-label></ion-label>
+                <ion-label>£{{ totalCost.toFixed(2) }}</ion-label>
+            </ion-item>
+        </ion-card>
+    </ng-template>
+</ion-content>

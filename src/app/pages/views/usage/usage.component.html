@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Usage</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div *ngIf="isLoading; else elseBlock">
+        <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    </div>
+
+    <ng-template #elseBlock>
+        <div class="ion-padding">
+            <ngx-datatable
+                [class]="isDarkMode ? 'dark' : 'material'"
+                [limit]="12"
+                [rows]="rows"
+                [rowHeight]="50"
+                [columns]="columns"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+            >
+                <ngx-datatable-column
+                    *ngFor="let column of columns; let i = index"
+                    name="{{ column.name }}"
+                    prop="{{ column.prop }}"
+                >
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Actions" prop="Id">
+                    <ng-template
+                        let-row="row"
+                        let-value="value"
+                        let-rowIndex="rowIndex"
+                        ngx-datatable-cell-template
+                    >
+                        <ion-button
+                            size="small"
+                            slot="start"
+                            expand="block"
+                            color="danger"
+                            (click)="deleteData(row)"
+                            (click)="presentToast()"
+                        >
+                            Delete
+                        </ion-button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </ng-template>
+</ion-content>

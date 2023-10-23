@@ -1,0 +1,7 @@
+{
+  "name": "ionic-meter-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
